@@ -1,9 +1,19 @@
 from dotenv import load_dotenv
-load_dotenv()
-
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
 from langchain_core.tools import tool
+from langchain.messages import HumanMessage
+from langgraph.graph import MessagesState, StateGraph
+
+from nodes import tool_node, run_agent_reasoning
+
+load_dotenv()
+
+#defining some constants:
+REASON = 'reason'
+ACT = 'act'
+LAST = -1
+
 
 @tool
 def tripple(num):
