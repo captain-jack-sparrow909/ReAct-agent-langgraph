@@ -22,14 +22,14 @@ def should_continue(state: MessagesState)->str:
     return ACT
 
 @tool
-def tripple(num):
+def triple(num):
     """
-    param: a number to tripple
+    param: a number to triple
     returns: the tripple of the input number
     """
     return float(num) * 3
 
-tools = [TavilySearch(max_results=1), tripple]
+tools = [TavilySearch(max_results=1), triple]
 
 tool_node = ToolNode(tools=tools)
 
@@ -68,6 +68,10 @@ app.get_graph().draw_mermaid_png(output_file_path='flow.png')
 
 def main():
     print("Hello from react-agent-langgraph!")
+    query = "what is the temperature in Tokyo now? list it and then triple it"
+    res = app.invoke({"messages": [HumanMessage(content=query)]})
+    print("---the response is---\n")
+    print(res["messages"][LAST].content)
 
 
 if __name__ == "__main__":
